@@ -1,0 +1,12 @@
+[package]
+name = "day5"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+input-reader = { path = "../input-reader" }
+regex = "1.1.0"
+derive_more = "0.99.16"
+num = "0.4.0"
