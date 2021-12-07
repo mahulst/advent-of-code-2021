@@ -4,6 +4,7 @@ use std::cmp;
 use std::collections::HashMap;
 use std::ops::RangeInclusive;
 use std::str::FromStr;
+use std::time::{Instant, Duration};
 
 fn main() {
     let input_path = format!("{}/input.txt", env!("CARGO_MANIFEST_DIR"));
@@ -18,7 +19,12 @@ fn main() {
         })
         .collect();
 
+
     println!("Answer 1: {}", part_1(&fish));
+    let now = Instant::now();
+    // ... do things
+    println!("{}", now.elapsed().as_micros());
+
 }
 
 #[derive(Debug)]
@@ -64,7 +70,6 @@ fn part_1(fish: &Vec<usize>) -> usize {
 
     count_fish(&fishes)
 }
-
 
 fn count_fish (fishes: &Vec<BunchOfFishes>) -> usize {
     fishes.iter().fold(0, |acc, next| {
