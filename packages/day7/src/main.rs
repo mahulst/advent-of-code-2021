@@ -21,7 +21,7 @@ fn main() {
 
     let now = Instant::now();
     println!("Answer 1: {}", part_1(&crab_submarines));
-    println!("Answer 1: {}", part_2(&crab_submarines));
+    println!("Answer 2: {}", part_2(&crab_submarines));
 
     println!("{}", now.elapsed().as_micros());
 
