@@ -31,14 +31,14 @@ fn main() {
     );
 }
 
-fn get_num_paths(node: String, nodes: &Nodes, visited: &mut HashSet<String>) -> usize {
+fn get_num_paths<'a>(node: &'a str, nodes: &Nodes, visited: &mut HashSet<&'a str>) -> usize {
     if node == "end" {
         return 1;
     }
-    let has_visited = visited.contains(&node);
-    visited.insert(node.to_string());
+    let has_visited = visited.contains(node);
+    visited.insert(node);
 
-    let path_ways = nodes.get(&node).unwrap();
+    let path_ways = nodes.get(node).unwrap();
 
     let mut total = 0;
     for path in path_ways {
@@ -47,16 +47,16 @@ fn get_num_paths(node: String, nodes: &Nodes, visited: &mut HashSet<String>) -> 
         }
 
         let mut path_visited = &mut visited.clone();
-        total += get_num_paths(path.to_string(), nodes, &mut path_visited);
+        total += get_num_paths(path, nodes, &mut path_visited);
     }
 
     total
 }
 
-fn get_num_paths_double(
-    node: String,
+fn get_num_paths_double<'a>(
+    node: &'a str,
     nodes: &Nodes,
-    visited: &mut HashSet<String>,
+    visited: &mut HashSet<&'a str>,
     visited_double: bool,
 ) -> usize {
     if node == "end" {
@@ -65,10 +65,10 @@ fn get_num_paths_double(
 
     let mut visited_double_this_path = false;
 
-    let has_visited = visited.contains(&node);
-    visited.insert(node.to_string());
+    let has_visited = visited.contains(node);
+    visited.insert(node);
 
-    let path_ways = nodes.get(&node).unwrap();
+    let path_ways = nodes.get(node).unwrap();
 
     let mut total = 0;
     for path in path_ways {
@@ -76,7 +76,7 @@ fn get_num_paths_double(
             continue;
         }
 
-        if is_small_cave(&node) && has_visited {
+        if is_small_cave(node) && has_visited {
             if visited_double {
                 return 0;
             }
@@ -86,7 +86,7 @@ fn get_num_paths_double(
 
         let mut path_visited = &mut visited.clone();
         total += get_num_paths_double(
-            path.to_string(),
+            path,
             nodes,
             &mut path_visited,
             visited_double_this_path || visited_double,
@@ -101,9 +101,9 @@ fn is_small_cave(node: &str) -> bool {
 }
 
 fn part_1(nodes: &Nodes) -> usize {
-    get_num_paths("start".to_string(), nodes, &mut HashSet::new())
+    get_num_paths("start", nodes, &mut HashSet::new())
 }
 
 fn part_2(nodes: &Nodes) -> usize {
-    get_num_paths_double("start".to_string(), nodes, &mut HashSet::new(), false)
+    get_num_paths_double("start", nodes, &mut HashSet::new(), false)
 }
